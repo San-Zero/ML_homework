@@ -1,5 +1,15 @@
 # DinoAI-API
 
+## Environment
+
+* Win10
+* Dino(google 小恐龍遊戲)
+* Python 3.9.0
+* tensorflow keras
+* opencv
+
+
+
 ---
 # **getData**
 
