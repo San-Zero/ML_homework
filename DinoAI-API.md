@@ -1,7 +1,8 @@
 # DinoAI-API
 
-# **getData**
 ---
+# **getData**
+
 
 <!--  樣板
 **Inputs**:
