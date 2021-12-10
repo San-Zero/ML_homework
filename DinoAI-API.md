@@ -83,7 +83,7 @@ if keyboard.is_pressed(keyboard.KEY_UP):  # If 'up' key is pressed
     Array: arr_images, arr_labels
 **Parameters**:
 
-    images: ./images/*.png(images資料夾裡的所有圖片)
+    images: images資料夾裡的所有圖片
     arr_images: 將圖片轉化成陣列的形式儲存
     arr_labels: 將label轉化成陣列的形式儲存
 **Method**:
@@ -182,7 +182,7 @@ history = model.fit(train_X, train_y, epochs=10, batch_size=64)
 **Method**:
 
 	將images資料夾內的各個種類的圖片彙整起來，並輸出成圖表
-	將images資料夾的圖片按比例分成**訓練用**與**測試用**，並輸出成圖表
+	將images資料夾的圖片按比例分成訓練用與測試用，並輸出成圖表
 
 **Example**:
 ```python=
