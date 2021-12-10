@@ -83,7 +83,10 @@
     2. 將圖片轉成灰階80x75
     3. 將圖片和label都儲存為陣列
 **Example**:
-
+```python=
+images = glob.glob("./images/*.png")
+X, Y = get_images_and_labels(images)
+```
 
 ## onehot_labels( labels )
 
@@ -105,7 +108,9 @@
     將陣列裡的label資料全部轉換成onehot的形式
 
 **Example**:
-
+```python=
+Y_labels = onehot_labels(Y_labels)
+```
 
 ## get_CNN_model()
 
@@ -122,6 +127,7 @@
     model: Sequential代表著線性疊加，可以隨著需求的不同，增加或減少部分的layer
 
 **Method**:
+
 ![](https://i.imgur.com/n8OtA4q.png)
 ![](https://i.imgur.com/q2mVtFL.png)
 
@@ -197,7 +203,7 @@ plot_data()
     
 **Method**:
 
-	將訓練的**accuracy**輸出成圖表
+    將訓練的**accuracy**輸出成圖表
     將訓練的**loss**輸出成圖表
 
 **Example**:
