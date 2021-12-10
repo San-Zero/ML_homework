@@ -11,7 +11,7 @@
 **Example**:
 -->
  
-## getRoi
+## getRoi(img_path)
 
 **Inputs**: 
 
@@ -33,6 +33,9 @@
     將全屏截圖當成Inputs，框出需要擷取的範圍回傳擷取起始位置和寬度、高度。
 
 **Example**:
+```python=
+getRoi('test.jpg')
+```
 
 設定圖片的路徑名稱並執行程式，開啟新視窗框出需要擷取的範圍，按下enter確認，按下c重新選取，再次按下enter儲存並關閉視窗。
 ![](https://i.imgur.com/8NDfJDp.png)
@@ -58,7 +61,11 @@
     當玩家按下相對應的按鍵時，擷取畫面並加上編號(key+ss_id+count)存取在./images/資料夾裡
 
 **Example**:
-
+```python=
+if keyboard.is_pressed(keyboard.KEY_UP):  # If 'up' key is pressed
+    take_screenshot(ss_id, "up")
+    time.sleep(0.01)
+```
 ![](https://i.imgur.com/6BkOAPX.png)
 
 
