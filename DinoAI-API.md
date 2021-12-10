@@ -58,6 +58,7 @@
     當玩家按下相對應的按鍵時，擷取畫面並加上編號(key+ss_id+count)存取在./images/資料夾裡
 
 **Example**:
+
 ![](https://i.imgur.com/6BkOAPX.png)
 
 
