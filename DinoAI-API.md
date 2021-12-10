@@ -69,9 +69,9 @@ if keyboard.is_pressed(keyboard.KEY_UP):  # If 'up' key is pressed
 ![](https://i.imgur.com/6BkOAPX.png)
 
 
-
-# **train_model**
 ---
+# **train_model**
+
 ## get_images_and_labels( images )
 
 **Inputs**:
@@ -242,9 +242,9 @@ plot_confusion_matrix()
 ```
 ![](https://i.imgur.com/Y450KL7.png)
 
-
-# **play_game**
 ---
+# **play_game**
+
 ## get_trained_data
 
 **Inputs**:
