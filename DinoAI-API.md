@@ -164,15 +164,16 @@ model = get_CNN_model()
 history = model.fit(train_X, train_y, epochs=10, batch_size=64)
 ```
 
-## plot_data()
+## plot_data("img_path", labels)
 
 **Inputs**:
 
-    N/A
+    Path: image_path
+    Array: labels
 
 **Outputs**:
 
-    N/A
+    圖表
 
 **Parameters**:
 
@@ -192,24 +193,26 @@ plot_data()
 
 
 
-## plot_accuracy_and_loss()
+## plot_accuracy_and_loss(model_acc, model_loss)
 
 **Inputs**:
 
-    N/A
+    model_acc
+    model_loss
 
 **Outputs**:
 
-    N/A
+    圖表
 
 **Parameters**:
 
-    N/A
+    model_acc: 透過model.history裡獲取的accuracy
+    model_loss: 透過model.history裡獲取的loss
     
 **Method**:
 
-    將訓練的**accuracy**輸出成圖表
-    將訓練的**loss**輸出成圖表
+    將訓練的accuracy輸出成圖表
+    將訓練的loss輸出成圖表
 
 **Example**:
 ```python=
@@ -219,15 +222,16 @@ plot_accuracy_and_loss()
 ![](https://i.imgur.com/LeqVvfO.png)
 
 
-## plot_confusion_matrix()
+## plot_confusion_matrix(test_images, test_labels)
 
 **Inputs**:
 
-    N/A
+    Array: test_images
+    Array: test_labels
 
 **Outputs**:
 
-    N/A
+    圖表
 
 **Parameters**:
 
@@ -235,7 +239,7 @@ plot_accuracy_and_loss()
 
 **Method**:
 
-    輸出CNN模型的**confusion matrix**(混淆矩陣)
+    輸出CNN模型的confusion matrix(混淆矩陣)
 
 **Example**:
 ```python=
