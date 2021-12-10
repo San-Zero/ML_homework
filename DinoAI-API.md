@@ -356,7 +356,7 @@ result = np.argmax(prediction)  # Convert one-hot prediction to the number
 
 **Inputs**:
 
-    int: result
+    int: key
     
 **Outputs**:
 
@@ -364,9 +364,9 @@ result = np.argmax(prediction)  # Convert one-hot prediction to the number
     
 **Parameters**:
 
-    0: right
-    1: down
-    2: up
+    key:  0 = right
+          1 = down
+          2 = up
     
 **Method**:
 
