@@ -146,18 +146,14 @@ Y_labels = onehot_labels(Y_labels)
 model = Sequential()
 model.add(Conv2D(16, kernel_size=(5, 5), activation="relu", input_shape=(width, height, 1)))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-
 model.add(Conv2D(32, kernel_size=(5, 5), activation="relu"))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-
 model.add(Conv2D(64, kernel_size=(5, 5), activation="relu"))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-
 model.add(Flatten())
 model.add(Dense(128, activation="relu"))
 model.add(Dropout(0.5))  # For regularization
 model.add(Dense(3, activation="softmax"))
-
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 ```
 * 使用
@@ -249,14 +245,134 @@ plot_confusion_matrix()
 
 # **play_game**
 ---
-## temp
+## get_trained_data
 
 **Inputs**:
 
+    model.json
+    weight.h5
+    
 **Outputs**:
 
+    N/A
+    
 **Parameters**:
 
+    model_json: CNN模型的json檔
+    data: 訓練完成後的資料
+    
 **Method**:
 
+    載入訓練模型和資料
+
 **Example**:
+```python=
+model = model_from_json(open("model.json", "r").read())
+model.load_weights("weights.h5")
+```
+
+## grab_frame
+
+**Inputs**:
+
+    frame
+    
+**Outputs**:
+
+    image
+    
+**Parameters**:
+
+    frame: 擷取畫面的大小
+    image: 透過ss_manager.grab定義創建圖片大小，是否要RGB
+    
+**Method**:
+
+    擷取遊戲當前畫面
+
+**Example**:
+```python=
+screenshot = ss_manager.grab(frame)
+image = Image.frombytes("RGB", screenshot.size, screenshot.rgb)
+```
+
+## process_images
+
+**Inputs**:
+
+    遊戲當前畫面
+    
+**Outputs**:
+
+    處理過的遊戲當前畫面
+    
+**Parameters**:
+
+    N/A
+    
+**Method**:
+
+    遊戲畫面的處理: 灰階、resize、normalize、轉換成array
+
+**Example**:
+```python=
+grey_image = image.convert("L")  # Convert RGB image to grey_scale image
+a_img = np.array(grey_image.resize((width, height)))  # Resize the grey image and convert it to numpy array
+img = a_img / 255  # Normalize the image array
+
+X = np.array([img])  # Convert list X to numpy array
+X = X.reshape(X.shape[0], width, height, 1)  # Reshape the X
+```
+
+## predict
+
+**Inputs**:
+
+    image
+    
+**Outputs**:
+
+    int: result
+    
+**Parameters**:
+
+    image: 已處理過的遊戲畫面
+    
+    result:  0 = right
+             1 = down
+             2 = up
+    
+**Method**:
+
+    預測當前的畫面類別為何
+
+**Example**:
+```python=
+prediction = model.predict(X)  # Get prediction by using the model
+result = np.argmax(prediction)  # Convert one-hot prediction to the number
+```
+
+## output_keyboard(key)
+
+**Inputs**:
+
+    int: result
+    
+**Outputs**:
+
+    鍵盤輸出
+    
+**Parameters**:
+
+    0: right
+    1: down
+    2: up
+    
+**Method**:
+
+    模擬鍵盤輸出
+
+**Example**:
+```python=
+output_keyboard(result)
+```
