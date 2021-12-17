@@ -1,0 +1,3 @@
+[submodule "Dino-AI"]
+	path = Dino-AI
+	url = https://github.com/San-Zero/Dino-AI.git
