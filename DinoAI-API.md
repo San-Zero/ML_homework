@@ -2,37 +2,35 @@
 
 ## Environment
 
-* Win10
-* Dino(google 小恐龍遊戲)
-* Python 3.9.0
-* tensorflow keras
-* opencv
-
-
+- Win10
+- Dino(google 小恐龍遊戲)
+- Python 3.9.0
+- tensorflow keras
+- opencv
 
 ---
-# **getData**
 
+# **getData**
 
 <!--  樣板
 **Inputs**:
 **Outputs**:
-**Parameters**:
+**Arguments**:
 **Method**:
 **Example**:
 -->
- 
+
 ## getRoi(img_path)
 
-**Inputs**: 
+**Inputs**:
 
     任一種類型的圖檔 Ex: jpg、png.
 
-**Outputs**: 
+**Outputs**:
 
     Int: x, y ,w, h
 
-**Parameters**: 
+**Arguments**:
 
     x: 擷取位置的x軸起始位置
     y: 擷取位置的y軸起始位置
@@ -44,26 +42,30 @@
     將全屏截圖當成Inputs，框出需要擷取的範圍回傳擷取起始位置和寬度、高度。
 
 **Example**:
+
 ```python=
 getRoi('test.jpg')
 ```
 
-設定圖片的路徑名稱並執行程式，開啟新視窗框出需要擷取的範圍，按下enter確認，按下c重新選取，再次按下enter儲存並關閉視窗。
-![](https://i.imgur.com/8NDfJDp.png)
+設定圖片的路徑名稱並執行程式，開啟新視窗框出需要擷取的範圍，按下 enter 確認，按下 c 重新選取，再次按下 enter 儲存並關閉視窗。
+![](https://i.imgur.com/LHAGu8S.png)
+
+
+
 
 ## take_screenshot( ss_id, key )
 
 **Inputs**:
 
-    UUID4: ss_id 
+    UUID4: ss_id
     String: key
 
 **Outputs**:
 
-    png images
+    png image file
 
-**Parameters**:
- 
+**Arguments**:
+
     ss_id: 採用UUID4的隨機編號
     key: 按鍵名稱(up、down、enter)
 
@@ -72,36 +74,43 @@ getRoi('test.jpg')
     當玩家按下相對應的按鍵時，擷取畫面並加上編號(key+ss_id+count)存取在./images/資料夾裡
 
 **Example**:
+
 ```python=
 if keyboard.is_pressed(keyboard.KEY_UP):  # If 'up' key is pressed
     take_screenshot(ss_id, "up")
     time.sleep(0.01)
 ```
+
 ![](https://i.imgur.com/6BkOAPX.png)
 
-
 ---
+
 # **train_model**
 
 ## get_images_and_labels( images )
 
 **Inputs**:
- 
+
     png images
+
 **Outputs**:
- 
+
     Array: arr_images, arr_labels
-**Parameters**:
+
+**Arguments**:
 
     images: images資料夾裡的所有圖片
     arr_images: 將圖片轉化成陣列的形式儲存
     arr_labels: 將label轉化成陣列的形式儲存
+
 **Method**:
 
     1. 透過圖片檔名，取得label資訊
     2. 將圖片轉成灰階80x75
     3. 將圖片和label都儲存為陣列
+
 **Example**:
+
 ```python=
 images = glob.glob("./images/*.png")
 X, Y = get_images_and_labels(images)
@@ -110,14 +119,14 @@ X, Y = get_images_and_labels(images)
 ## onehot_labels( labels )
 
 **Inputs**:
- 
+
     Array: labels
 
 **Outputs**:
 
     Array: onehot_labels
-    
-**Parameters**:
+
+**Arguments**:
 
     labels: 陣列裡的label資料
     onehot_labels: 已轉換成onehot的label
@@ -127,6 +136,7 @@ X, Y = get_images_and_labels(images)
     將陣列裡的label資料全部轉換成onehot的形式
 
 **Example**:
+
 ```python=
 Y_labels = onehot_labels(Y_labels)
 ```
@@ -141,7 +151,7 @@ Y_labels = onehot_labels(Y_labels)
 
     Sequential: model
 
-**Parameters**:
+**Arguments**:
 
     model: Sequential代表著線性疊加，可以隨著需求的不同，增加或減少部分的layer
 
@@ -152,7 +162,8 @@ Y_labels = onehot_labels(Y_labels)
 
 **Example**:
 
-* CNN模型內部
+- CNN 模型內部
+
 ```python=
 model = Sequential()
 model.add(Conv2D(16, kernel_size=(5, 5), activation="relu", input_shape=(width, height, 1)))
@@ -167,7 +178,9 @@ model.add(Dropout(0.5))  # For regularization
 model.add(Dense(3, activation="softmax"))
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 ```
-* 使用
+
+- 使用
+
 ```python=
 train_X, test_X, train_y, test_y = train_test_split(images, labels, test_size=0.1, random_state=10)  # Split the dataset
 model = get_CNN_model()
@@ -178,30 +191,30 @@ history = model.fit(train_X, train_y, epochs=10, batch_size=64)
 
 **Inputs**:
 
-    Path: image_path
+    String: image_path
     Array: labels
 
 **Outputs**:
 
     圖表
 
-**Parameters**:
+**Arguments**:
 
     N/A
-    
+
 **Method**:
 
-	將images資料夾內的各個種類的圖片彙整起來，並輸出成圖表
-	將images資料夾的圖片按比例分成訓練用與測試用，並輸出成圖表
+    將images資料夾內的各個種類的圖片彙整起來，並輸出成圖表
+    將images資料夾的圖片按比例分成訓練用與測試用，並輸出成圖表
 
 **Example**:
+
 ```python=
 plot_data()
 ```
+
 ![](https://i.imgur.com/hbmbary.png)
 ![](https://i.imgur.com/vXJOLRy.png)
-
-
 
 ## plot_accuracy_and_loss(model_acc, model_loss)
 
@@ -214,23 +227,24 @@ plot_data()
 
     圖表
 
-**Parameters**:
+**Arguments**:
 
     model_acc: 透過model.history裡獲取的accuracy
     model_loss: 透過model.history裡獲取的loss
-    
+
 **Method**:
 
     將訓練的accuracy輸出成圖表
     將訓練的loss輸出成圖表
 
 **Example**:
+
 ```python=
 plot_accuracy_and_loss()
 ```
+
 ![](https://i.imgur.com/wJ22nZj.png)
 ![](https://i.imgur.com/LeqVvfO.png)
-
 
 ## plot_confusion_matrix(test_images, test_labels)
 
@@ -243,21 +257,25 @@ plot_accuracy_and_loss()
 
     圖表
 
-**Parameters**:
+**Arguments**:
 
-    N/A  
+    test_images: 測試用的圖片
+    test_labels: 測試用的標籤
 
 **Method**:
 
     輸出CNN模型的confusion matrix(混淆矩陣)
 
 **Example**:
+
 ```python=
 plot_confusion_matrix()
 ```
+
 ![](https://i.imgur.com/Y450KL7.png)
 
 ---
+
 # **play_game**
 
 ## get_trained_data
@@ -266,21 +284,22 @@ plot_confusion_matrix()
 
     model.json
     weight.h5
-    
+
 **Outputs**:
 
     N/A
-    
-**Parameters**:
+
+**Arguments**:
 
     model_json: CNN模型的json檔
-    data: 訓練完成後的資料
-    
+    weight.h5: 訓練完成後的資料
+
 **Method**:
 
     載入訓練模型和資料
 
 **Example**:
+
 ```python=
 model = model_from_json(open("model.json", "r").read())
 model.load_weights("weights.h5")
@@ -291,21 +310,22 @@ model.load_weights("weights.h5")
 **Inputs**:
 
     frame
-    
+
 **Outputs**:
 
     image
-    
-**Parameters**:
+
+**Arguments**:
 
     frame: 擷取畫面的大小
     image: 透過ss_manager.grab定義創建圖片大小，是否要RGB
-    
+
 **Method**:
 
     擷取遊戲當前畫面
 
 **Example**:
+
 ```python=
 screenshot = ss_manager.grab(frame)
 image = Image.frombytes("RGB", screenshot.size, screenshot.rgb)
@@ -316,20 +336,21 @@ image = Image.frombytes("RGB", screenshot.size, screenshot.rgb)
 **Inputs**:
 
     遊戲當前畫面
-    
+
 **Outputs**:
 
     處理過的遊戲當前畫面
-    
-**Parameters**:
+
+**Arguments**:
 
     N/A
-    
+
 **Method**:
 
     遊戲畫面的處理: 灰階、resize、normalize、轉換成array
 
 **Example**:
+
 ```python=
 grey_image = image.convert("L")  # Convert RGB image to grey_scale image
 a_img = np.array(grey_image.resize((width, height)))  # Resize the grey image and convert it to numpy array
@@ -344,24 +365,25 @@ X = X.reshape(X.shape[0], width, height, 1)  # Reshape the X
 **Inputs**:
 
     image
-    
+
 **Outputs**:
 
     int: result
-    
-**Parameters**:
+
+**Arguments**:
 
     image: 已處理過的遊戲畫面
-    
+
     result:  0 = right
              1 = down
              2 = up
-    
+
 **Method**:
 
     預測當前的畫面類別為何
 
 **Example**:
+
 ```python=
 prediction = model.predict(X)  # Get prediction by using the model
 result = np.argmax(prediction)  # Convert one-hot prediction to the number
@@ -372,22 +394,23 @@ result = np.argmax(prediction)  # Convert one-hot prediction to the number
 **Inputs**:
 
     int: key
-    
+
 **Outputs**:
 
     鍵盤輸出
-    
-**Parameters**:
+
+**Arguments**:
 
     key:  0 = right
           1 = down
           2 = up
-    
+
 **Method**:
 
     模擬鍵盤輸出
 
 **Example**:
+
 ```python=
 output_keyboard(result)
 ```
