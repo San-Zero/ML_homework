@@ -159,6 +159,8 @@ Y_labels = onehot_labels(Y_labels)
 
 ![](https://i.imgur.com/n8OtA4q.png)
 ![](https://i.imgur.com/q2mVtFL.png)
+![](https://i.imgur.com/Cl3UtU8.png)
+
 
 **Example**:
 
@@ -178,6 +180,35 @@ model.add(Dropout(0.5))  # For regularization
 model.add(Dense(3, activation="softmax"))
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 ```
+- 模型內部說明
+
+    Squential: 代表模型是一層層疊加的
+    
+    model.add: 給模型增加一層
+    
+        Conv2D: 2d的convolution: 16個filiters, 大小5x5, 啟用relu, 
+                定義input_shape,stride預設1。
+                
+        MaxPooling2D: 2x2長寬變為原來的一半。
+        
+        Flatten: 銜接CNN層與全連接層，因為FC層需要一維的輸入，
+                 常見其他方式還有Global average pooling。
+                 
+        Dense: 這層FC會有128個Neurons。
+        
+        Dropout: 每一次的迭代 (epoch)皆以一定的機率丟棄隱藏層神經元，而被丟棄的神經元不會傳遞訊息。
+        
+    [Dropout說明](https://medium.com/%E6%89%8B%E5%AF%AB%E7%AD%86%E8%A8%98/%E4%BD%BF%E7%94%A8-tensorflow-%E4%BA%86%E8%A7%A3-dropout-bf64a6785431)
+
+    [model.compile](https://dotblogs.com.tw/greengem/2017/12/17/094023): 
+    定義模型的[損失函數(loss)](https://chih-sheng-huang821.medium.com/%E6%A9%9F%E5%99%A8-%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92-%E5%9F%BA%E7%A4%8E%E4%BB%8B%E7%B4%B9-%E6%90%8D%E5%A4%B1%E5%87%BD%E6%95%B8-loss-function-2dcac5ebb6cb), 
+    [優化函數(optimizer)](https://medium.com/%E9%9B%9E%E9%9B%9E%E8%88%87%E5%85%94%E5%85%94%E7%9A%84%E5%B7%A5%E7%A8%8B%E4%B8%96%E7%95%8C/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92ml-note-sgd-momentum-adagrad-adam-optimizer-f20568c968db), 
+    成效衡量指標(metrics)
+    
+    tensorflow可使用的: [losses](https://www.tensorflow.org/api_docs/python/tf/keras/losses), 
+                      [optimizers](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers) 
+                      [mertrics](https://www.tensorflow.org/api_docs/python/tf/keras/metrics)
+        
 
 - 使用
 
@@ -185,6 +216,11 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 train_X, test_X, train_y, test_y = train_test_split(images, labels, test_size=0.1, random_state=10)  # Split the dataset
 model = get_CNN_model()
 history = model.fit(train_X, train_y, epochs=10, batch_size=64)
+train_accuracy = model.evaluate(train_X, train_y)
+print("Train accuracy: %", train_accuracy[1] * 100)
+
+test_accuracy = model.evaluate(test_X, test_y)
+print("Test accuracy: %", test_accuracy[1] * 100)
 ```
 
 ## plot_data("img_path", labels)
@@ -304,7 +340,8 @@ plot_confusion_matrix()
 model = model_from_json(open("model.json", "r").read())
 model.load_weights("weights.h5")
 ```
-
+HDF5/.h5檔說明連結:
+https://zh.wikipedia.org/wiki/HDF
 ## grab_frame
 
 **Inputs**:
@@ -330,6 +367,9 @@ model.load_weights("weights.h5")
 screenshot = ss_manager.grab(frame)
 image = Image.frombytes("RGB", screenshot.size, screenshot.rgb)
 ```
+datapyte of screenshot <class 'mss.screenshot.ScreenShot'>
+    
+
 
 ## process_images
 
@@ -359,6 +399,15 @@ img = a_img / 255  # Normalize the image array
 X = np.array([img])  # Convert list X to numpy array
 X = X.reshape(X.shape[0], width, height, 1)  # Reshape the X
 ```
+使用function: current_frame
+```python=
+def current_frame(frame):
+    cv2.namedWindow("current frame", flags=cv2.WINDOW_NORMAL | cv2.WINDOW_FREERATIO)
+    cv2.imshow("current frame", frame)
+    cv2.waitKey(0)
+```
+    輸出結果:
+![](https://i.imgur.com/LouxtV1.png)
 
 ## predict
 
