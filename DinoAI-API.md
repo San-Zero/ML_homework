@@ -340,8 +340,8 @@ plot_confusion_matrix()
 model = model_from_json(open("model.json", "r").read())
 model.load_weights("weights.h5")
 ```
-HDF5/.h5檔說明連結:
-https://zh.wikipedia.org/wiki/HDF
+[HDF5/.h5檔說明連結:](https://zh.wikipedia.org/wiki/HDF)
+
 ## grab_frame
 
 **Inputs**:
